@@ -1,6 +1,7 @@
-import Head from 'next/head'
-import { GetServerSideProps } from 'next'
+import { FC } from 'react'
+import { Button } from '@material-ui/core'
 import axios from 'axios'
+import { GetServerSideProps } from 'next'
 
 type HomeProps = {
   user: {
@@ -8,17 +9,13 @@ type HomeProps = {
   }
 }
 
-const Home: React.FC<HomeProps> = ({ user }) => {
+const Home: FC<HomeProps> = ({ user }) => {
   return (
     <div>
-      <Head>
-        <title>Linkedin</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>
-        <h1>Welcome to Linkedin {user?.name}</h1>
-      </main>
+      <h1>Welcome to Linkedin {user?.name}</h1>
+      <Button variant="contained" color="primary">
+        Test
+      </Button>
     </div>
   )
 }
