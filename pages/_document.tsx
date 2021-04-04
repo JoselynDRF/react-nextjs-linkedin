@@ -7,7 +7,7 @@ import Document, {
   Main,
   NextScript
 } from 'next/document'
-import theme from '../src/theme'
+import theme from './theme'
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

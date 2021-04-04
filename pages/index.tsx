@@ -1,7 +1,14 @@
 import { FC } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, Container, makeStyles } from '@material-ui/core'
 import axios from 'axios'
 import { GetServerSideProps } from 'next'
+import Header from '../components/Header/Header'
+
+const useStyles = makeStyles(theme => ({
+  content: {
+    backgroundColor: theme.palette.background.default
+  }
+}))
 
 type HomeProps = {
   user: {
@@ -10,12 +17,14 @@ type HomeProps = {
 }
 
 const Home: FC<HomeProps> = ({ user }) => {
+  const classes = useStyles()
+
   return (
     <div>
-      <h1>Welcome to Linkedin {user?.name}</h1>
-      <Button variant="contained" color="primary">
-        Test
-      </Button>
+      <Header></Header>
+      <Container className={classes.content}>
+        <h1>Welcome to Linkedin {user?.name}</h1>
+      </Container>
     </div>
   )
 }
