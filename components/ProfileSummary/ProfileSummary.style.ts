@@ -11,7 +11,6 @@ export default makeStyles(theme => ({
     border: `6px solid ${theme.palette.common.white}`
   },
   cardContent: {
-    padding: 0,
     '&:last-child': {
       padding: 0
     }
@@ -20,7 +19,7 @@ export default makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   link: {
-    fontWeight: 600
+    fontWeight: 500
   },
   icon: {
     color: theme.palette.text.secondary,
