@@ -52,7 +52,11 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ user }) => {
       />
       <Avatar alt="Profile photo" className={classes.avatar} />
       <CardContent className={classes.cardContent}>
-        <Typography variant="h6" align="center">
+        <Typography
+          variant="subtitle1"
+          align="center"
+          style={{ fontWeight: 500 }}
+        >
           {user?.name}
         </Typography>
         <Typography variant="body2" align="center" color="textSecondary">
