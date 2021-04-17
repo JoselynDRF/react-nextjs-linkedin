@@ -6,6 +6,17 @@ import Card from '../components/Card/Card'
 import Header from '../components/Header/Header'
 import ProfileSummary from '../components/ProfileSummary/ProfileSummary'
 import CreatePost from '../components/CreatePost/CreatePost'
+import Post from '../components/Post/Post'
+
+type PostProps = {
+  id: number
+  author: string
+  degreeConnection: string
+  headline: string
+  createDate: string
+  content: string
+  likes: number
+}
 
 type HomeProps = {
   user: {
@@ -15,6 +26,7 @@ type HomeProps = {
     views: number
     connections: number
   }
+  posts: PostProps[]
 }
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Home: FC<HomeProps> = ({ user }) => {
+const Home: FC<HomeProps> = ({ user, posts }) => {
   const classes = useStyles()
 
   return (
@@ -41,11 +53,11 @@ const Home: FC<HomeProps> = ({ user }) => {
                 <Grid item>
                   <CreatePost />
                 </Grid>
-                <Grid item>
-                  <Card variant="outlined">
-                    <CardContent>Posts</CardContent>
-                  </Card>
-                </Grid>
+                {posts.map(post => (
+                  <Grid key={post.id} item>
+                    <Post post={post} />
+                  </Grid>
+                ))}
               </Grid>
             </main>
           </Grid>
@@ -63,11 +75,13 @@ const Home: FC<HomeProps> = ({ user }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await axios.get('http://localhost:3000/api/user')
+  const { data: user } = await axios.get('http://localhost:3000/api/user')
+  const { data: posts } = await axios.get('http://localhost:3000/api/posts')
 
   return {
     props: {
-      user: data
+      user,
+      posts
     }
   }
 }
