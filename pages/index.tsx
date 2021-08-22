@@ -7,6 +7,8 @@ import ProfileSummary from '../components/ProfileSummary/ProfileSummary'
 import CreatePost from '../components/CreatePost/CreatePost'
 import Post from '../components/Post/Post'
 import FollowsWidget from '../components/FollowsWidget/FollowsWidget'
+import api from '../server/api'
+import { useFetch } from '../hooks/useFetch'
 
 type PostProps = {
   id: number
@@ -43,8 +45,14 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Home: FC<HomeProps> = ({ user, posts, recommendations }) => {
+const Home: FC<HomeProps> = ({ user, recommendations }) => {
   const classes = useStyles()
+  const { data: posts, mutate } = useFetch<PostProps[]>('posts')
+
+  const createPost = (newPost: PostProps) => {
+    api.post('posts', newPost)
+    mutate([...posts, newPost], false)
+  }
 
   return (
     <div>
@@ -54,21 +62,22 @@ const Home: FC<HomeProps> = ({ user, posts, recommendations }) => {
           <Grid item xs={3}>
             <ProfileSummary user={user} />
           </Grid>
-          <Grid item xs={5}>
+          <Grid item xs={6}>
             <main>
               <Grid container direction="column" spacing={2}>
                 <Grid item>
-                  <CreatePost />
+                  <CreatePost onSubmit={createPost} />
                 </Grid>
-                {posts.map(post => (
-                  <Grid key={post.id} item>
-                    <Post post={post} />
-                  </Grid>
-                ))}
+                {posts?.length &&
+                  posts.map(post => (
+                    <Grid key={post.id} item>
+                      <Post post={post} />
+                    </Grid>
+                  ))}
               </Grid>
             </main>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <aside>
               <FollowsWidget recommendations={recommendations} />
             </aside>
@@ -81,7 +90,6 @@ const Home: FC<HomeProps> = ({ user, posts, recommendations }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data: user } = await axios.get('http://localhost:3000/api/user')
-  const { data: posts } = await axios.get('http://localhost:3000/api/posts')
   const { data: recommendations } = await axios.get(
     'http://localhost:3000/api/recommendations'
   )
@@ -89,7 +97,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       user,
-      posts,
       recommendations
     }
   }

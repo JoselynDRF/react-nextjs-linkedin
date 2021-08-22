@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import {
   Avatar,
   Box,
@@ -13,7 +14,21 @@ import YouTubeIcon from '@material-ui/icons/YouTube'
 import Card from '../Card/Card'
 import useStyles from './CreatePost.style'
 
-const CreatePost = () => {
+type PostProps = {
+  id: number
+  author: string
+  degreeConnection: string
+  headline: string
+  createDate: string
+  content: string
+  likes: number
+}
+
+type CreatePostProps = {
+  onSubmit: (post: PostProps) => void
+}
+
+const CreatePost: FC<CreatePostProps> = ({ onSubmit }) => {
   const classes = useStyles()
 
   const buttons = [
@@ -35,12 +50,26 @@ const CreatePost = () => {
     }
   ]
 
+  // TEMP
+  const newPost = {
+    id: Math.random(),
+    author: 'New post',
+    degreeConnection: '3rd+',
+    headline: 'Programmer',
+    createDate: '1s',
+    content: 'Lorem ipsum dolor sit amet.',
+    likes: 0
+  }
+
   return (
     <Card variant="outlined">
       <CardContent className={classes.cardContent}>
         <Box display="flex" alignItems="center" mb={1}>
           <Avatar alt="Profile photo" />
-          <ButtonBase className={classes.createButton}>
+          <ButtonBase
+            className={classes.createButton}
+            onClick={() => onSubmit(newPost)}
+          >
             <Typography
               variant="body2"
               color="textSecondary"
