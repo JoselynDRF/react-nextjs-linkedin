@@ -45,9 +45,13 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Home: FC<HomeProps> = ({ user, recommendations }) => {
+const Home: FC<HomeProps> = ({
+  user,
+  posts: initialPosts,
+  recommendations
+}) => {
   const classes = useStyles()
-  const { data: posts, mutate } = useFetch<PostProps[]>('posts')
+  const { data: posts, mutate } = useFetch<PostProps[]>('posts', initialPosts)
 
   const createPost = (newPost: PostProps) => {
     api.post('posts', newPost)
@@ -68,12 +72,13 @@ const Home: FC<HomeProps> = ({ user, recommendations }) => {
                 <Grid item>
                   <CreatePost onSubmit={createPost} />
                 </Grid>
-                {posts?.length &&
-                  posts.map(post => (
-                    <Grid key={post.id} item>
-                      <Post post={post} />
-                    </Grid>
-                  ))}
+                {posts?.length
+                  ? posts.map(post => (
+                      <Grid key={post.id} item>
+                        <Post post={post} />
+                      </Grid>
+                    ))
+                  : null}
               </Grid>
             </main>
           </Grid>
@@ -90,6 +95,7 @@ const Home: FC<HomeProps> = ({ user, recommendations }) => {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const { data: user } = await axios.get('http://localhost:3000/api/user')
+  const { data: posts } = await api.get('posts')
   const { data: recommendations } = await axios.get(
     'http://localhost:3000/api/recommendations'
   )
@@ -97,6 +103,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   return {
     props: {
       user,
+      posts,
       recommendations
     }
   }
