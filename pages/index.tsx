@@ -1,5 +1,4 @@
 import { FC } from 'react'
-import axios from 'axios'
 import { GetServerSideProps } from 'next'
 import { Container, Grid, makeStyles } from '@material-ui/core'
 import Header from '../components/Header/Header'
@@ -11,7 +10,7 @@ import api from '../server/api'
 import { useFetch } from '../hooks/useFetch'
 
 type PostProps = {
-  id: number
+  _id: number
   author: string
   degreeConnection: string
   headline: string
@@ -74,7 +73,7 @@ const Home: FC<HomeProps> = ({
                 </Grid>
                 {posts?.length
                   ? posts.map(post => (
-                      <Grid key={post.id} item>
+                      <Grid key={post._id || ''} item>
                         <Post post={post} />
                       </Grid>
                     ))
@@ -94,11 +93,9 @@ const Home: FC<HomeProps> = ({
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data: user } = await axios.get('http://localhost:3000/api/user')
+  const { data: user } = await api.get('user')
   const { data: posts } = await api.get('posts')
-  const { data: recommendations } = await axios.get(
-    'http://localhost:3000/api/recommendations'
-  )
+  const { data: recommendations } = await api.get('recommendations')
 
   return {
     props: {

@@ -15,7 +15,6 @@ import Card from '../Card/Card'
 import useStyles from './CreatePost.style'
 
 type PostProps = {
-  id: number
   author: string
   degreeConnection: string
   headline: string
@@ -52,7 +51,6 @@ const CreatePost: FC<CreatePostProps> = ({ onSubmit }) => {
 
   // TEMP
   const newPost = {
-    id: Math.random(),
     author: 'New post',
     degreeConnection: '3rd+',
     headline: 'Programmer',

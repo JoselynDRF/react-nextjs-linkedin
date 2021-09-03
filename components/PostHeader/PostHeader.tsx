@@ -5,7 +5,7 @@ import useStyles from './PostHeader.style'
 
 type PostHeaderProps = {
   post: {
-    id: number
+    _id: number
     author: string
     degreeConnection: string
     headline: string

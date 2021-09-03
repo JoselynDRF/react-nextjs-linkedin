@@ -8,7 +8,7 @@ import useStyles from './Post.style'
 
 type PostProps = {
   post: {
-    id: number
+    _id: number
     author: string
     degreeConnection: string
     headline: string
