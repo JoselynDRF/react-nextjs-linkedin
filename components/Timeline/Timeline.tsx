@@ -1,19 +1,9 @@
 import { FC } from 'react'
 import Grid from '@material-ui/core/Grid'
-import api from '../../server/api'
+import api from '../../utils/api'
 import { useFetch } from '../../hooks/useFetch'
 import CreatePost from '../CreatePost/CreatePost'
 import Post from '../Post/Post'
-
-type PostProps = {
-  _id: number
-  author: string
-  degreeConnection: string
-  headline: string
-  createDate: string
-  content: string
-  likes: number
-}
 
 type TimelineProps = {
   initialPosts: PostProps[]

@@ -5,32 +5,10 @@ import Header from '../components/Header/Header'
 import ProfileSummary from '../components/ProfileSummary/ProfileSummary'
 import Timeline from '../components/Timeline/Timeline'
 import FollowsWidget from '../components/FollowsWidget/FollowsWidget'
-import api from '../server/api'
-
-type PostProps = {
-  _id: number
-  author: string
-  degreeConnection: string
-  headline: string
-  createDate: string
-  content: string
-  likes: number
-}
-
-type RecommendationProps = {
-  id: number
-  title: string
-  headline: string
-}
+import api from '../utils/api'
 
 type HomeProps = {
-  user: {
-    name: string
-    headline: string
-    photo: string
-    views: number
-    connections: number
-  }
+  user: UserProps
   posts: PostProps[]
   recommendations: RecommendationProps[]
 }

@@ -14,15 +14,6 @@ import YouTubeIcon from '@material-ui/icons/YouTube'
 import Card from '../Card/Card'
 import useStyles from './CreatePost.style'
 
-type PostProps = {
-  author: string
-  degreeConnection: string
-  headline: string
-  createDate: string
-  content: string
-  likes: number
-}
-
 type CreatePostProps = {
   onSubmit: (post: PostProps) => void
 }

@@ -4,15 +4,7 @@ import PublicIcon from '@material-ui/icons/Public'
 import useStyles from './PostHeader.style'
 
 type PostHeaderProps = {
-  post: {
-    _id: number
-    author: string
-    degreeConnection: string
-    headline: string
-    createDate: string
-    content: string
-    likes: number
-  }
+  post: PostProps
 }
 
 const PostHeader: FC<PostHeaderProps> = ({ post }) => {

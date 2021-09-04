@@ -6,19 +6,11 @@ import PostActions from '../PostActions/PostActions'
 import PostHeader from '../PostHeader/PostHeader'
 import useStyles from './Post.style'
 
-type PostProps = {
-  post: {
-    _id: number
-    author: string
-    degreeConnection: string
-    headline: string
-    createDate: string
-    content: string
-    likes: number
-  }
+type PostComponentProps = {
+  post: PostProps
 }
 
-const Post: FC<PostProps> = ({ post }) => {
+const Post: FC<PostComponentProps> = ({ post }) => {
   const classes = useStyles()
 
   return (

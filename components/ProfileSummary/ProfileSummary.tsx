@@ -15,13 +15,7 @@ import Card from '../../components/Card/Card'
 import useStyles from './ProfileSummary.style'
 
 type ProfileMenuProps = {
-  user: {
-    name: string
-    headline: string
-    photo: string
-    views: number
-    connections: number
-  }
+  user: UserProps
 }
 
 const ProfileMenu: FC<ProfileMenuProps> = ({ user }) => {

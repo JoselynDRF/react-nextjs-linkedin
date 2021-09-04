@@ -12,12 +12,6 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward'
 import Card from '../Card/Card'
 import useStyles from './FollowsWidget.style'
 
-type RecommendationProps = {
-  id: number
-  title: string
-  headline: string
-}
-
 type FollowsWidgetProps = {
   recommendations: RecommendationProps[]
 }
