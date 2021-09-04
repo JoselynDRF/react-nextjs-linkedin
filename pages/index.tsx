@@ -3,11 +3,9 @@ import { GetServerSideProps } from 'next'
 import { Container, Grid, makeStyles } from '@material-ui/core'
 import Header from '../components/Header/Header'
 import ProfileSummary from '../components/ProfileSummary/ProfileSummary'
-import CreatePost from '../components/CreatePost/CreatePost'
-import Post from '../components/Post/Post'
+import Timeline from '../components/Timeline/Timeline'
 import FollowsWidget from '../components/FollowsWidget/FollowsWidget'
 import api from '../server/api'
-import { useFetch } from '../hooks/useFetch'
 
 type PostProps = {
   _id: number
@@ -44,18 +42,8 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Home: FC<HomeProps> = ({
-  user,
-  posts: initialPosts,
-  recommendations
-}) => {
+const Home: FC<HomeProps> = ({ user, posts, recommendations }) => {
   const classes = useStyles()
-  const { data: posts, mutate } = useFetch<PostProps[]>('posts', initialPosts)
-
-  const createPost = (newPost: PostProps) => {
-    api.post('posts', newPost)
-    mutate([...posts, newPost], false)
-  }
 
   return (
     <div>
@@ -67,18 +55,7 @@ const Home: FC<HomeProps> = ({
           </Grid>
           <Grid item xs={6}>
             <main>
-              <Grid container direction="column" spacing={2}>
-                <Grid item>
-                  <CreatePost onSubmit={createPost} />
-                </Grid>
-                {posts?.length
-                  ? posts.map(post => (
-                      <Grid key={post._id || ''} item>
-                        <Post post={post} />
-                      </Grid>
-                    ))
-                  : null}
-              </Grid>
+              <Timeline initialPosts={posts} />
             </main>
           </Grid>
           <Grid item xs={3}>
