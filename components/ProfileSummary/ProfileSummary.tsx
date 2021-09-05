@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { useContext } from 'react'
 import {
   Avatar,
   Box,
@@ -12,14 +12,12 @@ import {
 } from '@material-ui/core'
 import BookmarkIcon from '@material-ui/icons/Bookmark'
 import Card from '../../components/Card/Card'
+import { AppContext } from '../../contexts/store'
 import useStyles from './ProfileSummary.style'
 
-type ProfileMenuProps = {
-  user: UserProps
-}
-
-const ProfileMenu: FC<ProfileMenuProps> = ({ user }) => {
+const ProfileMenu = () => {
   const classes = useStyles()
+  const { user } = useContext(AppContext)
 
   const links = [
     {

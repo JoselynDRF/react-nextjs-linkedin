@@ -1,5 +1,6 @@
-import { FC } from 'react'
+import { FC, useContext, useState } from 'react'
 import { mutate } from 'swr'
+import { Descendant } from 'slate'
 import {
   Button,
   Dialog,
@@ -11,6 +12,10 @@ import {
 } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import api from '../../utils/api'
+import { AppContext } from '../../contexts/store'
+import PlainTextEditor, {
+  serializeText
+} from '../PlainTextEditor/PlainTextEditor'
 import useStyles from './CreatePostDialog.style'
 
 type CreatePostDialogProps = {
@@ -25,15 +30,21 @@ const CreatePostDialog: FC<CreatePostDialogProps> = ({
   onClose
 }) => {
   const classes = useStyles()
+  const { user } = useContext(AppContext)
+  const [text, setText] = useState<Descendant[]>([
+    {
+      type: 'paragraph',
+      children: [{ text: '' }]
+    }
+  ])
 
   const createPost = () => {
-    // TEMP
     const newPost = {
-      author: 'New post',
-      degreeConnection: '3rd+',
-      headline: 'Programmer',
+      author: user.name,
+      degreeConnection: '',
+      headline: user.headline,
       createDate: '1s',
-      content: 'Lorem ipsum dolor sit amet.',
+      content: serializeText(text),
       likes: 0
     }
 
@@ -58,13 +69,13 @@ const CreatePostDialog: FC<CreatePostDialogProps> = ({
         </IconButton>
       </DialogTitle>
       <DialogContent dividers>
-        <Typography>Content</Typography>
+        <PlainTextEditor text={text} setText={setText} />
       </DialogContent>
       <DialogActions>
         <Button
           variant="contained"
           color="primary"
-          onClick={() => createPost()}
+          onClick={createPost}
           className={classes.submitButton}
         >
           Post

@@ -16,11 +16,13 @@ const PostHeader: FC<PostHeaderProps> = ({ post }) => {
       <div>
         <Box display="flex">
           <Typography variant="subtitle2" className={classes.subtitle}>
-            {post.author} •
+            {post.author}
           </Typography>
-          <Typography variant="subtitle2" color="textSecondary">
-            {post.degreeConnection}
-          </Typography>
+          {post.degreeConnection && (
+            <Typography variant="subtitle2" color="textSecondary">
+              • {post.degreeConnection}
+            </Typography>
+          )}
         </Box>
 
         <Typography variant="caption" color="textSecondary">

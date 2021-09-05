@@ -6,6 +6,7 @@ import ProfileSummary from '../components/ProfileSummary/ProfileSummary'
 import Timeline from '../components/Timeline/Timeline'
 import FollowsWidget from '../components/FollowsWidget/FollowsWidget'
 import api from '../utils/api'
+import { AppContext } from '../contexts/store'
 
 type HomeProps = {
   user: UserProps
@@ -24,12 +25,12 @@ const Home: FC<HomeProps> = ({ user, posts, recommendations }) => {
   const classes = useStyles()
 
   return (
-    <div>
+    <AppContext.Provider value={{ user }}>
       <Header></Header>
       <Container className={classes.content}>
         <Grid container spacing={3}>
           <Grid item xs={3}>
-            <ProfileSummary user={user} />
+            <ProfileSummary />
           </Grid>
           <Grid item xs={6}>
             <main>
@@ -43,7 +44,7 @@ const Home: FC<HomeProps> = ({ user, posts, recommendations }) => {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </AppContext.Provider>
   )
 }
 
