@@ -1,6 +1,5 @@
 import { FC } from 'react'
 import Grid from '@material-ui/core/Grid'
-import api from '../../utils/api'
 import { useFetch } from '../../hooks/useFetch'
 import CreatePost from '../CreatePost/CreatePost'
 import Post from '../Post/Post'
@@ -10,17 +9,12 @@ type TimelineProps = {
 }
 
 const Timeline: FC<TimelineProps> = ({ initialPosts }) => {
-  const { data: posts, mutate } = useFetch<PostProps[]>('posts', initialPosts)
-
-  const createPost = (newPost: PostProps) => {
-    api.post('posts', newPost)
-    mutate([...posts, newPost], false)
-  }
+  const { data: posts } = useFetch<PostProps[]>('posts', initialPosts)
 
   return (
     <Grid container direction="column" spacing={2}>
       <Grid item>
-        <CreatePost onSubmit={createPost} />
+        <CreatePost posts={posts} />
       </Grid>
       {posts?.length
         ? posts.map(post => (

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 import {
   Avatar,
   Box,
@@ -12,14 +12,16 @@ import EventIcon from '@material-ui/icons/Event'
 import PhotoSizeSelectActualIcon from '@material-ui/icons/PhotoSizeSelectActual'
 import YouTubeIcon from '@material-ui/icons/YouTube'
 import Card from '../Card/Card'
+import CreatePostDialog from '../CreatePostDialog/CreatePostDialog'
 import useStyles from './CreatePost.style'
 
 type CreatePostProps = {
-  onSubmit: (post: PostProps) => void
+  posts: PostProps[]
 }
 
-const CreatePost: FC<CreatePostProps> = ({ onSubmit }) => {
+const CreatePost: FC<CreatePostProps> = ({ posts }) => {
   const classes = useStyles()
+  const [openDialog, setOpenDialog] = useState(false)
 
   const buttons = [
     {
@@ -40,52 +42,49 @@ const CreatePost: FC<CreatePostProps> = ({ onSubmit }) => {
     }
   ]
 
-  // TEMP
-  const newPost = {
-    author: 'New post',
-    degreeConnection: '3rd+',
-    headline: 'Programmer',
-    createDate: '1s',
-    content: 'Lorem ipsum dolor sit amet.',
-    likes: 0
-  }
-
   return (
-    <Card variant="outlined">
-      <CardContent className={classes.cardContent}>
-        <Box display="flex" alignItems="center" mb={1}>
-          <Avatar alt="Profile photo" />
-          <ButtonBase
-            className={classes.createButton}
-            onClick={() => onSubmit(newPost)}
-          >
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              style={{ fontWeight: 500 }}
+    <>
+      <Card variant="outlined">
+        <CardContent className={classes.cardContent}>
+          <Box display="flex" alignItems="center" mb={1}>
+            <Avatar alt="Profile photo" />
+            <ButtonBase
+              className={classes.createButton}
+              onClick={() => setOpenDialog(true)}
             >
-              Start a post
-            </Typography>
-          </ButtonBase>
-        </Box>
-        <Grid container justify="space-between">
-          {buttons.map(({ title, icon }) => (
-            <Grid key={title} item>
-              <ButtonBase className={classes.itemButton}>
-                {icon}
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  className={classes.buttonText}
-                >
-                  {title}
-                </Typography>
-              </ButtonBase>
-            </Grid>
-          ))}
-        </Grid>
-      </CardContent>
-    </Card>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                style={{ fontWeight: 500 }}
+              >
+                Start a post
+              </Typography>
+            </ButtonBase>
+          </Box>
+          <Grid container justify="space-between">
+            {buttons.map(({ title, icon }) => (
+              <Grid key={title} item>
+                <ButtonBase className={classes.itemButton}>
+                  {icon}
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    className={classes.buttonText}
+                  >
+                    {title}
+                  </Typography>
+                </ButtonBase>
+              </Grid>
+            ))}
+          </Grid>
+        </CardContent>
+      </Card>
+      <CreatePostDialog
+        open={openDialog}
+        posts={posts}
+        onClose={() => setOpenDialog(false)}
+      />
+    </>
   )
 }
 

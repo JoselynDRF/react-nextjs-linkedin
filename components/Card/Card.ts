@@ -3,5 +3,5 @@ import { styled } from '@material-ui/core/styles'
 import theme from '../../pages/theme'
 
 export default styled(Card)({
-  borderRadius: theme.spacing(2)
+  borderRadius: theme.spacing(1)
 })
