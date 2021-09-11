@@ -12,6 +12,7 @@ type PostComponentProps = {
 
 const Post: FC<PostComponentProps> = ({ post }) => {
   const classes = useStyles()
+  const paragraph = post.content.split('\n')
 
   return (
     <Card variant="outlined">
@@ -19,7 +20,13 @@ const Post: FC<PostComponentProps> = ({ post }) => {
         <PostHeader post={post} />
 
         <Box>
-          <Typography variant="body2">{post.content}</Typography>
+          {paragraph.length
+            ? paragraph.map((text, index) => (
+                <Typography key={index} variant="body2" paragraph>
+                  {text}
+                </Typography>
+              ))
+            : null}
           <Box display="flex" justifyContent="flex-end">
             <Link
               component="button"
