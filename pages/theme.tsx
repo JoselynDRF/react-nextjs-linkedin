@@ -8,7 +8,8 @@ const theme = createMuiTheme({
       default: grey[100]
     },
     primary: {
-      main: lightBlue[500]
+      main: lightBlue[500],
+      light: lightBlue[50]
     }
   }
 })

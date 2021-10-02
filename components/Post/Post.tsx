@@ -27,7 +27,7 @@ const Post: FC<PostComponentProps> = ({ post }) => {
                 </Typography>
               ))
             : null}
-          <Box display="flex" justifyContent="flex-end">
+          <Box display="none" justifyContent="flex-end">
             <Link
               component="button"
               variant="body2"

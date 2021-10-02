@@ -5,7 +5,7 @@ Linkedin clone with React and Next.js
 
 - First, create your own **.env.local** file based on **.env.example**
 
-- Create a mongoDB instance on MongoDB Atlas and paste the database url on **.env.local**.
+- Create a mongoDB instance on MongoDB Atlas and paste the database url on **.env.local**
 
 - Finally, run the development server:
 
