@@ -6,7 +6,7 @@ const profileMenu = [
       {
         id: 'settings',
         title: 'Settings & Privacy',
-        path: 'settings'
+        path: '/settings'
       },
       {
         id: 'help',
@@ -16,7 +16,7 @@ const profileMenu = [
       {
         id: 'language',
         title: 'Language',
-        path: 'settings/select-language'
+        path: '#'
       }
     ]
   },
@@ -27,7 +27,7 @@ const profileMenu = [
       {
         id: 'activity',
         title: 'Posts & Activity',
-        path: 'detail/recent-activity'
+        path: '#'
       },
       {
         id: 'job-posting',

@@ -1,4 +1,5 @@
 type UserProps = {
+  username: string
   name: string
   headline: string
   photo: string

@@ -1,10 +1,11 @@
 import { FC, useContext } from 'react'
+import Link from 'next/link'
 import {
   Avatar,
   Box,
   ButtonBase,
   Divider,
-  Link,
+  Link as MuiLink,
   Menu,
   Typography
 } from '@material-ui/core'
@@ -54,11 +55,13 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ anchorEl, setAnchorEl }) => {
           <Typography variant="body2">{user.headline}</Typography>
         </div>
       </Box>
-      <ButtonBase className={classes.profileButton}>
-        <Typography variant="subtitle2" color="primary">
-          View Profile
-        </Typography>
-      </ButtonBase>
+      <Link href={'in/' + user.username} passHref>
+        <ButtonBase className={classes.profileButton} onClick={handleMenuClose}>
+          <Typography variant="subtitle2" color="primary">
+            View Profile
+          </Typography>
+        </ButtonBase>
+      </Link>
       {profileMenu.length &&
         profileMenu.map(({ id, title, options }) => (
           <div key={id}>
@@ -73,21 +76,28 @@ const ProfileMenu: FC<ProfileMenuProps> = ({ anchorEl, setAnchorEl }) => {
             {options.length &&
               options.map(({ id, title, path }) => (
                 <Box key={id} display="flex" mb={1}>
-                  <Link href={path} variant="body2" color="textSecondary">
-                    {title}
+                  <Link href={path} passHref>
+                    <MuiLink
+                      variant="body2"
+                      color="textSecondary"
+                      onClick={handleMenuClose}
+                    >
+                      {title}
+                    </MuiLink>
                   </Link>
                 </Box>
               ))}
           </div>
         ))}
       <Divider className={classes.divider} />
-      <Link
-        href="#"
-        variant="body2"
-        color="textSecondary"
-        onClick={handleMenuClose}
-      >
-        Sign Out
+      <Link href="#" passHref>
+        <MuiLink
+          variant="body2"
+          color="textSecondary"
+          onClick={handleMenuClose}
+        >
+          Sign Out
+        </MuiLink>
       </Link>
     </Menu>
   )
