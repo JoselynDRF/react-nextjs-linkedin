@@ -2,7 +2,8 @@ import { makeStyles } from '@material-ui/core'
 
 export default makeStyles(theme => ({
   media: {
-    height: 60
+    height: 60,
+    borderRadius: theme.spacing(1, 1, 0, 0)
   },
   avatar: {
     width: theme.spacing(10),
